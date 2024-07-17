@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h2 {
+            color: #333;
+        }
+        p {
+            margin-top: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        strong {
+            color: #007bff;
+        }
+
+        .btn {
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.button-container {
+    display: flex; 
+    gap: 5px;
+}
+
+    </style>
+</head>
+<body>
+
+<h2>Quiz Results</h2>
+
+{% for item in final_score %}
+
+
+    <p>{{ item.question }}</p>
+    <p><strong>{{ item.answer }}</strong></p>
+    <p>{{ item.score }}</p>
+
+    
+    
+{% endfor %}    
+
+<h2>
+    Total Score you got: {{result}}
+</h2>
+<div class="button-container">
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Logout</button>
+    </form>
+
+    <form action="{% url 'homepage' %}" method="get">
+        <button type="submit" class="btn btn-primary">Go to Home page</button>
+    </form>
+</div>
+
+
+
+</body>
+</html>

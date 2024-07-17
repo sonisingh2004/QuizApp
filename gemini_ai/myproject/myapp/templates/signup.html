@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Design by foolishdeveloper.com -->
+    <title>Signup Page</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+     <style>
+        body {
+            background-color: #f8f9fa; /* Light grey background */
+        }
+        
+        .container {
+            max-width: 600px; /* Narrower container for a more focused form */
+            margin-top: 100px; /* More space at the top */
+        }
+        
+        h3 {
+            color: #6c757d; /* Darker grey for headings */
+        }
+        
+        .form-control {
+            border-radius: 20px; /* Rounded corners for inputs */
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075); /* Inner shadow for depth */
+        }
+        
+        .btn-primary {
+            background-color: #007bff; /* Bootstrap's primary color */
+            border-color: #007bff;
+            box-shadow: none; /* Remove default shadow */
+            transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+        }
+        
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+            border-color: #0056b3;
+        }
+        
+        a {
+            color: #007bff; /* Link color matching button */
+            text-decoration: none;
+        }
+        
+        a:hover {
+            color: #0056b3; /* Darker link color on hover */
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-warning">{{message}}</div>
+            {% endfor %}   
+        {% endif %}
+
+        {% block content%}
+        {% endblock%}
+
+        <form action="" method="post" class="mt-5">
+            {% csrf_token %} 
+            <h3 class="mb-3">Signup Here</h3>
+
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" placeholder="Username" name="username" id="username">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" placeholder="Email or Phone" name="email" id="email">
+            </div>
+
+            <div class="form-group">
+                <label for="password1">Password</label>
+                <input type="password" class="form-control" placeholder="Password" id="password1" name="password1">
+            </div>
+
+            <div class="form-group">
+                <label for="password2">Confirm Password</label>
+                <input type="password" class="form-control" placeholder="Confirm Password" id="password2" name="password2">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Signup</button>
+            
+            <a href="{% url 'login' %}" class="d-block mt-3 text-center">I already have an account</a>
+        </form>
+    </div>
+
+    <!-- Optional Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

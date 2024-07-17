@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Design by foolishdeveloper.com -->
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Soft light gray background */
+        }
+        
+        .container {
+            max-width: 400px; /* Smaller container for a more compact form */
+            margin-top: 150px; /* Center the form vertically */
+        }
+        
+        h3 {
+            color: #343a40; /* Darker text color for the title */
+        }
+        
+        .form-group label {
+            font-weight: bold; /* Make labels bolder */
+        }
+        
+        .btn-primary {
+            background-color: #007bff; /* Ensure the button matches Bootstrap's primary color */
+            border-color: #007bff;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0056b3; /* Slightly darker shade on hover */
+            border-color: #0056b3;
+        }
+        
+        a {
+            color: #007bff; /* Match link color with the primary button */
+            text-decoration: none;
+        }
+        
+        a:hover {
+            color: #0056b3; /* Darker link color on hover */
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+      <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                    <div class="alert alert-warning">{{message}}</div>
+            {% endfor %}   
+        {% endif %}
+
+        {% block content%}
+        {% endblock%}
+    </div>
+     <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form method="post" class="mt-5">
+                    {% csrf_token %}
+                    <h3 class="text-center">Login Here</h3>
+                    
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" placeholder="Enter Username" id="username" name="username">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" placeholder="Password" id="password" name="pass">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block">Log In</button>
+                    
+                    <!-- Social Login Buttons -->
+                    <!-- Uncomment and customize these lines if you want to add social login options -->
+                    <!--
+                    <div class="social mt-3 text-center">
+                      <a href="#" class="btn btn-danger"><i class="fab fa-google"></i> Google</a>
+                      <a href="#" class="btn btn-primary"><i class="fab fa-facebook"></i> Facebook</a>
+                    </div>
+                    -->
+                    
+                    <a href="{% url 'signup' %}" class="d-block mt-3 text-center">Create an account</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

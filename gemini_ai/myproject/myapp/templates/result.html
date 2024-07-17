@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Generated Question</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+            margin: auto;
+            text-align: left;
+        }
+        .objective-question{
+            padding:10px;
+            margin-top:20px;
+            border-radius: 5px;
+            background-color: #fbfbfb;
+        }
+         .objective-question p{
+            margin-top:0
+         }
+        h2 {
+            color: #333;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        h2:after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background-color: #007bff;
+        }
+
+        p {
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        .feedback {
+            color: green;
+            font-weight: bold;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: vertical;
+            margin-bottom: 20px;
+            outline:none;
+        }
+        textarea::placeholder{
+            font-family: 'Roboto', sans-serif;
+        }
+        {% comment %} input[type="radio"] {
+            display:block
+        } {% endcomment %}
+
+        input[type="submit"] {
+            margin-top:20px;
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 30px;
+            color: #007bff;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        a:hover {
+            border-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Your Generated Question ({{type}})</h2> 
+            
+        <form action="/check-answer" method="post">
+            {% csrf_token %}
+            {% if type == 'objective' %}
+            {% for q in question %}
+            <div class="objective-question">
+                <p>{{ forloop.counter }}.{{ q.question }}</p>
+                <input type="hidden" name="question-{{ forloop.counter }}" value="{{ q.question }}"/>
+                {% for i in q.options %}
+                    <input type="radio" name="answer-{{ i.option }}" value="{{ i.option }}"/> {{ i.option }}  <br> 
+                {% endfor %}
+            </div>
+            {% endfor %}
+            {% elif type == 'subjective' %}
+            {% for q in question %}
+                <p>{{ forloop.counter }}.{{ q.question }}</p>
+                <input type="hidden" name="question-{{ forloop.counter }}" value="{{ q.question }}"/>
+                <textarea type="text" name="answer-{{ forloop.counter }}" rows='3' placeholder="Enter your answer..."></textarea>
+            {% endfor %}
+            {% endif %}
+
+            <input type="submit" value="Submit Answer">
+        </form>
+        {% if feedback %}
+            <p class="feedback">{{ feedback }}</p>
+        {% endif %}
+        <a href="/">Back to Generate Another Question</a>
+    </div>
+</body>
+</html>
